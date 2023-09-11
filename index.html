@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pomodoro</title>
+</head>
+
+<body>
+    <h1>Pomodoro</h1>
+
+    <div class="status" id="couleur">
+        <p id="status">Travail</p>
+    </div>
+
+    <div class="container" id="container">
+        <p id="time"></p>
+    </div>
+
+    <button id="button"><img src="start.png" alt="start button"></button>
+
+    <div>
+        <label for="workDuration">Durée de travail (minutes)</label>
+        <input type="number" id="workDuration" value="25">
+    </div>
+    <div>
+        <label for="breakDuration">Durée de pause (minutes)</label>
+        <input type="number" id="breakDuration" value="5">
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
