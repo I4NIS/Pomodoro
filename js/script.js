@@ -6,11 +6,11 @@ let time = document.getElementById("time");
 let status = document.getElementById("status");
 let etat = document.getElementById("couleur");
 let container = document.getElementById("container");
-let workDurationInput = document.getElementById("workDuration");
-let breakDurationInput = document.getElementById("breakDuration");
 let compteur = document.getElementById("compteur");
 let start = document.getElementById("startButton");
 
+let workDuration = 25
+let breakDuration = 5
 //Tableau des durées de travail et de pause
 let durationArray = [];
 
@@ -22,17 +22,6 @@ let compt = 0;
 // Index du timer actuelle
 let currentIndex = 0;
 
-// Récupérer les valeurs précédemment enregistrées dans le LocalStorage
-const savedWorkDuration = localStorage.getItem("workDuration");
-const savedBreakDuration = localStorage.getItem("breakDuration");
-
-// Si des valeurs sont enregistrées, les utiliser
-if (savedWorkDuration) {
-    workDurationInput.value = savedWorkDuration;
-}
-if (savedBreakDuration) {
-    breakDurationInput.value = savedBreakDuration;
-}
 
 // Ajouter un écouteur d'événement sur le bouton de démarrage
 button.addEventListener("click", () => {
@@ -58,14 +47,6 @@ button.addEventListener("click", () => {
 function startTimer() {
     // Arrêter le timer actuel s'il y en a un
     clearInterval(interval); 
-
-    // Récupérer les valeurs des inputs
-    const workDuration = parseInt(workDurationInput.value);
-    const breakDuration = parseInt(breakDurationInput.value);
-
-    // Enregistrer les valeurs actuelles dans le LocalStorage
-    localStorage.setItem("workDuration", workDuration.toString());
-    localStorage.setItem("breakDuration", breakDuration.toString());
 
     // Enregistrement des durées de travail et de pause dans le tableau
     tempsArray = [workDuration * 60, breakDuration * 60];

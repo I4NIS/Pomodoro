@@ -21,6 +21,7 @@ button{
 button{
     background-color: rgb(34, 34, 34);
 }
+
 i{
     background-color: rgb(34, 34, 34);
     color: white;
@@ -54,34 +55,6 @@ h1{
     justify-content: center;
     align-items: center;
     margin: auto;
-}
-
-
-.workDuration{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-top: 3%;
-    color: white;
-}
-
-.workDuration label{
-    margin-right: 1%;
-}
-
-
-.breakDuration{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    color: white;
-}
-
-
-.breakDuration label{
-    margin-right: 1%;
 }
 
 .container{
