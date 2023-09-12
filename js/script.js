@@ -9,6 +9,7 @@ let container = document.getElementById("container");
 let workDurationInput = document.getElementById("workDuration");
 let breakDurationInput = document.getElementById("breakDuration");
 let compteur = document.getElementById("compteur");
+let start = document.getElementById("startButton");
 
 //Tableau des durées de travail et de pause
 let durationArray = [];
@@ -41,9 +42,17 @@ button.addEventListener("click", () => {
     // Remettre le compteur de session à 0
     compt = 0;
 
+    start.className ="fa-solid fa-rotate-right"
+    if(start.className == "fa-solid fa-rotate-right"){
+        start.addEventListener("click", () => {
+            location.reload();
+        });
+    }
     // Démarrer le timer
     startTimer();
 });
+
+
 
 // Fonction pour démarrer le timer
 function startTimer() {
