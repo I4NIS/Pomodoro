@@ -4,6 +4,7 @@ body{
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: rgb(34, 34, 34);
 }
 button{
     background-color: white;
@@ -17,6 +18,14 @@ button{
     align-items: center;
 }
 
+button{
+    background-color: rgb(34, 34, 34);
+}
+i{
+    background-color: rgb(34, 34, 34);
+    color: white;
+}
+
 button i{
     font-size: 8em;
 }
@@ -25,13 +34,15 @@ button i{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    color: white;
 }
 
 h1{
     text-align: center;
     font-size: 4em;
     margin-top: 0;
+    margin-bottom: 0;
+    color: white;
 }
 
 .status{
@@ -45,11 +56,6 @@ h1{
     margin: auto;
 }
 
-.status p {
-    margin: 0;
-    color: white;
-    font-size: 2rem;
-}
 
 .workDuration{
     display: flex;
@@ -57,6 +63,7 @@ h1{
     align-items: center;
     margin: auto;
     margin-top: 3%;
+    color: white;
 }
 
 .workDuration label{
@@ -69,7 +76,9 @@ h1{
     justify-content: center;
     align-items: center;
     margin: auto;
+    color: white;
 }
+
 
 .breakDuration label{
     margin-right: 1%;
@@ -84,10 +93,18 @@ h1{
     width: 40vh;
     height: 40vh;
 
+    color: white;
+    
     border-radius: 50%;
-    border: 10px solid black;
+    border: 10px solid white;
     margin-top: 3%;
     margin-bottom: 3%;
+
+}
+
+.container p {
+    font-size: 5em;
+    font-family: 'Poppins', sans-serif;
 }
 
 footer{
@@ -96,12 +113,17 @@ footer{
     align-items: center;
     margin-bottom: 0;
     margin-top: 5% ;
-    background-color: rgb(34, 34, 34);
-    color: white;
+    background-color: white;
+    color: black;
     bottom: 0;
 }
 
-footer{
-    width: 100%;
-    height: 10vh;   
+.compteur{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    color: white;
 }

@@ -11,9 +11,12 @@
 
 <body>
     <h1>Pomodoro</h1>
-
+    
+    <div class="compteur">
+        <p id="compteur"></p>
+    </div>
     <div class="status" id="couleur">
-        <p id="status">Travail</p>
+        <h2 id="status">Travail</h2>
     </div>
 
     <div class="container" id="container">
@@ -21,13 +24,14 @@
     </div>
 
     <div class="containerButton">
-    <button id="button"><i class="fa-solid fa-play"></i></button>
+        <button id="button"><i class="fa-solid fa-play"></i></button>
     </div>
 
     <div class="workDuration">
         <label for="workDuration">Durée de travail (min)</label>
         <input type="number" id="workDuration" value="25">
     </div>
+
     <div class="breakDuration">
         <label for="breakDuration">Durée de pause (min)</label>
         <input type="number" id="breakDuration" value="5">
@@ -41,3 +45,4 @@
 </body>
 
 </html>
+
