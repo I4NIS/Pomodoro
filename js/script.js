@@ -6,11 +6,14 @@ let temps = document.getElementById("tempsRestant");
 let statut = document.getElementById("statutTimer");
 let etat = document.getElementById("couleur");
 let conteneur = document.getElementById("conteneur");
+
 let dureeTravailInput = document.getElementById("dureeTravail");
 let dureePauseInput = document.getElementById("dureePause");
+
 let compteur = document.getElementById("compteurSession");
 let demarrer = document.getElementById("iconeDemarrer");
 
+let supprimerLocalStorage = document.getElementById("supprimerLocalStorage");
 // Tableau des durées de travail et de pause
 let tableauDurees = [];
 
@@ -21,7 +24,6 @@ let compteurSession = 0;
 
 // Index du minuteur actuel
 let indexActuel = 0;
-
 
 // Récupérer les valeurs précédemment enregistrées dans le LocalStorage
 const dureeTravailEnregistree = localStorage.getItem("dureeTravail");
@@ -35,6 +37,17 @@ if (dureePauseEnregistree) {
     dureePauseInput.value = dureePauseEnregistree;
 }
 
+// Afficher le temps de départ
+dureeTravailInput.addEventListener("input", () => {
+    temps.innerHTML = dureeTravailInput.value + ":00";
+});
+
+temps.innerHTML = dureeTravailInput.value + ":00";
+
+supprimerLocalStorage.addEventListener("click", () => {
+    localStorage.clear();
+    location.reload();
+});
 // Ajouter un écouteur d'événement sur le bouton de démarrage
 bouton.addEventListener("click", () => {
     // Réinitialiser l'index du minuteur actuel à 0
@@ -77,10 +90,12 @@ function demarrerMinuteur() {
     // Afficher le statut du minuteur et la couleur correspondante au statut
     if (indexActuel == 0) {
         statut.innerHTML = "Travail";
+        statut.style.color = "white";
         etat.style.background = "red";
         conteneur.style.borderColor = "red";
     } else {
         compteurSession++;
+        statut.style.color = "white";
         statut.innerHTML = "Pause";
         etat.style.background = "green";
         conteneur.style.borderColor = "green";
