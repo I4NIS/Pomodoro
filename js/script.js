@@ -42,8 +42,9 @@ button.addEventListener("click", () => {
     // Remettre le compteur de session à 0
     compt = 0;
 
-    start.className ="fa-solid fa-rotate-right"
-    if(start.className == "fa-solid fa-rotate-right"){
+    // Changer l'icône du bouton de démarrage
+    start.className = "fa-solid fa-rotate-right"
+    if (start.className == "fa-solid fa-rotate-right") {
         start.addEventListener("click", () => {
             location.reload();
         });
@@ -57,7 +58,7 @@ button.addEventListener("click", () => {
 // Fonction pour démarrer le timer
 function startTimer() {
     // Arrêter le timer actuel s'il y en a un
-    clearInterval(interval); 
+    clearInterval(interval);
 
     // Récupérer les valeurs des inputs
     const workDuration = parseInt(workDurationInput.value);
@@ -70,9 +71,9 @@ function startTimer() {
     // Enregistrement des durées de travail et de pause dans le tableau
     tempsArray = [workDuration * 60, breakDuration * 60];
     let currentTemps = tempsArray[currentIndex];
-    
+
     //Affichage du compteur de session
-    compteur.textContent = "Nombre de session : " +compt;
+    compteur.textContent = "Nombre de session : " + compt;
 
     //Affichage du status du timer et de la couleur adaptée au status
     if (currentIndex == 0) {
