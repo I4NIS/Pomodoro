@@ -1,129 +1,127 @@
-//Author: I4NIS
+// Auteur : I4NIS
 
 // Récupérer les éléments du DOM
-let button = document.getElementById("button");
-let time = document.getElementById("time");
-let status = document.getElementById("status");
+let bouton = document.getElementById("boutonDemarrer");
+let temps = document.getElementById("tempsRestant");
+let statut = document.getElementById("statutTimer");
 let etat = document.getElementById("couleur");
-let container = document.getElementById("container");
-let workDurationInput = document.getElementById("workDuration");
-let breakDurationInput = document.getElementById("breakDuration");
-let compteur = document.getElementById("compteur");
-let start = document.getElementById("startButton");
+let conteneur = document.getElementById("conteneur");
+let dureeTravailInput = document.getElementById("dureeTravail");
+let dureePauseInput = document.getElementById("dureePause");
+let compteur = document.getElementById("compteurSession");
+let demarrer = document.getElementById("iconeDemarrer");
 
-//Tableau des durées de travail et de pause
-let durationArray = [];
+// Tableau des durées de travail et de pause
+let tableauDurees = [];
 
-let interval;
+let intervalle;
 
 // Compteur de session
-let compt = 0;
+let compteurSession = 0;
 
-// Index du timer actuelle
-let currentIndex = 0;
+// Index du minuteur actuel
+let indexActuel = 0;
+
 
 // Récupérer les valeurs précédemment enregistrées dans le LocalStorage
-const savedWorkDuration = localStorage.getItem("workDuration");
-const savedBreakDuration = localStorage.getItem("breakDuration");
+const dureeTravailEnregistree = localStorage.getItem("dureeTravail");
+const dureePauseEnregistree = localStorage.getItem("dureePause");
 
 // Si des valeurs sont enregistrées, les utiliser
-if (savedWorkDuration) {
-    workDurationInput.value = savedWorkDuration;
+if (dureeTravailEnregistree) {
+    dureeTravailInput.value = dureeTravailEnregistree;
 }
-if (savedBreakDuration) {
-    breakDurationInput.value = savedBreakDuration;
+if (dureePauseEnregistree) {
+    dureePauseInput.value = dureePauseEnregistree;
 }
 
 // Ajouter un écouteur d'événement sur le bouton de démarrage
-button.addEventListener("click", () => {
-    // Remettre l'index du timer actuel à 0
-    currentIndex = 0;
+bouton.addEventListener("click", () => {
+    // Réinitialiser l'index du minuteur actuel à 0
+    indexActuel = 0;
 
-    // Remettre le compteur de session à 0
-    compt = 0;
+    // Réinitialiser le compteur de session à 0
+    compteurSession = 0;
 
     // Changer l'icône du bouton de démarrage
-    start.className = "fa-solid fa-rotate-right"
-    if (start.className == "fa-solid fa-rotate-right") {
-        start.addEventListener("click", () => {
+    demarrer.className = "fa-solid fa-rotate-right"
+    if (demarrer.className == "fa-solid fa-rotate-right") {
+        demarrer.addEventListener("click", () => {
             location.reload();
         });
     }
-    // Démarrer le timer
-    startTimer();
+    // Démarrer le minuteur
+    demarrerMinuteur();
 });
 
+// Fonction pour démarrer le minuteur
+function demarrerMinuteur() {
+    // Arrêter le minuteur actuel s'il y en a un
+    clearInterval(intervalle);
 
-
-// Fonction pour démarrer le timer
-function startTimer() {
-    // Arrêter le timer actuel s'il y en a un
-    clearInterval(interval);
-
-    // Récupérer les valeurs des inputs
-    const workDuration = parseInt(workDurationInput.value);
-    const breakDuration = parseInt(breakDurationInput.value);
+    // Récupérer les valeurs des saisies
+    const dureeTravail = parseInt(dureeTravailInput.value);
+    const dureePause = parseInt(dureePauseInput.value);
 
     // Enregistrer les valeurs actuelles dans le LocalStorage
-    localStorage.setItem("workDuration", workDuration.toString());
-    localStorage.setItem("breakDuration", breakDuration.toString());
+    localStorage.setItem("dureeTravail", dureeTravail.toString());
+    localStorage.setItem("dureePause", dureePause.toString());
 
-    // Enregistrement des durées de travail et de pause dans le tableau
-    tempsArray = [workDuration * 60, breakDuration * 60];
-    let currentTemps = tempsArray[currentIndex];
+    // Enregistrer les durées de travail et de pause dans le tableau
+    tableauDurees = [dureeTravail * 60, dureePause * 60];
+    let tempsActuel = tableauDurees[indexActuel];
 
-    //Affichage du compteur de session
-    compteur.textContent = "Nombre de session : " + compt;
+    // Afficher le compteur de session
+    compteur.textContent = "Nombre de sessions : " + compteurSession;
 
-    //Affichage du status du timer et de la couleur adaptée au status
-    if (currentIndex == 0) {
-        status.innerHTML = "Travail";
+    // Afficher le statut du minuteur et la couleur correspondante au statut
+    if (indexActuel == 0) {
+        statut.innerHTML = "Travail";
         etat.style.background = "red";
-        container.style.borderColor = "red";
+        conteneur.style.borderColor = "red";
     } else {
-        compt++;
-        status.innerHTML = "Pause";
+        compteurSession++;
+        statut.innerHTML = "Pause";
         etat.style.background = "green";
-        container.style.borderColor = "green";
+        conteneur.style.borderColor = "green";
     }
 
-    // Démarrer le timer
-    interval = setInterval(() => {
-        // Si le timer n'est pas terminé, décrémenter
-        if (currentTemps > 0) {
-
-            // Décrémenter le timer
-            currentTemps--;
+    // Démarrer le minuteur
+    intervalle = setInterval(() => {
+        // Si le minuteur n'est pas terminé, décrémenter
+        if (tempsActuel > 0) {
+            // Décrémenter le minuteur
+            tempsActuel--;
 
             // Calculer les minutes et les secondes
-            const minutes = Math.floor(currentTemps / 60);
-            const secondes = currentTemps % 60;
+            const minutes = Math.floor(tempsActuel / 60);
+            const secondes = tempsActuel % 60;
 
             // Afficher les minutes et les secondes
             if (minutes == 0) {
                 if (secondes < 10) {
-                    time.innerHTML = "00:0" + secondes;
+                    temps.innerHTML = "00:0" + secondes;
                 } else {
-                    time.innerHTML = "00:" + secondes;
+                    temps.innerHTML = "00:" + secondes;
                 }
             } else {
                 if (secondes < 10 && minutes < 10) {
-                    time.innerHTML = "0" + minutes + ":0" + secondes;
+                    temps.innerHTML = "0" + minutes + ":0" + secondes;
                 } else if (secondes < 10 && minutes >= 10) {
-                    time.innerHTML = minutes + ":0" + secondes;
+                    temps.innerHTML = minutes + ":0" + secondes;
                 } else if (secondes >= 10 && minutes < 10) {
-                    time.innerHTML = "0" + minutes + ":" + secondes;
+                    temps.innerHTML = "0" + minutes + ":" + secondes;
                 } else {
-                    time.innerHTML = minutes + ":" + secondes;
+                    temps.innerHTML = minutes + ":" + secondes;
                 }
             }
         } else {
-            // Si le timer est terminé, passer au suivant
-            clearInterval(interval);
-            // Changer l'index du timer actuel
-            currentIndex = (currentIndex + 1) % 2;
-            // Démarrer le timer suivant
-            startTimer();
+            // Si le minuteur est terminé, passer au suivant
+            clearInterval(intervalle);
+            // Changer l'index du minuteur actuel
+            indexActuel = (indexActuel + 1) % 2;
+            // Démarrer le minuteur suivant
+            demarrerMinuteur();
         }
-    }, 10);
+    }, 1000);
 }
