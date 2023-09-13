@@ -13,6 +13,7 @@ let dureePauseInput = document.getElementById("dureePause");
 let compteur = document.getElementById("compteurSession");
 let demarrer = document.getElementById("iconeDemarrer");
 
+let titre = document.getElementById("titre");
 let supprimerLocalStorage = document.getElementById("supprimerLocalStorage");
 // Tableau des durées de travail et de pause
 let tableauDurees = [];
@@ -40,9 +41,11 @@ if (dureePauseEnregistree) {
 // Afficher le temps de départ
 dureeTravailInput.addEventListener("input", () => {
     temps.innerHTML = dureeTravailInput.value + ":00";
+    titre.innerHTML = "Pomodoro Timer - " + dureeTravailInput.value + " minutes";
 });
 
 temps.innerHTML = dureeTravailInput.value + ":00";
+titre.innerHTML = "Pomodoro Timer - " + dureeTravailInput.value + " minutes";
 
 supprimerLocalStorage.addEventListener("click", () => {
     localStorage.clear();
@@ -105,6 +108,7 @@ function demarrerMinuteur() {
     intervalle = setInterval(() => {
         // Si le minuteur n'est pas terminé, décrémenter
         if (tempsActuel > 0) {
+            
             // Décrémenter le minuteur
             tempsActuel--;
 
@@ -129,6 +133,7 @@ function demarrerMinuteur() {
                 } else {
                     temps.innerHTML = minutes + ":" + secondes;
                 }
+                
             }
         } else {
             // Si le minuteur est terminé, passer au suivant
@@ -138,5 +143,5 @@ function demarrerMinuteur() {
             // Démarrer le minuteur suivant
             demarrerMinuteur();
         }
-    }, 1000);
+    }, 10);
 }
