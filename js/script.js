@@ -143,5 +143,5 @@ function demarrerMinuteur() {
             // Démarrer le minuteur suivant
             demarrerMinuteur();
         }
-    }, 10);
+    }, 1000);
 }
