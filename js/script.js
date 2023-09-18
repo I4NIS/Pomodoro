@@ -38,10 +38,13 @@ if (dureePauseEnregistree) {
     dureePauseInput.value = dureePauseEnregistree;
 }
 
+
 // Afficher le temps de départ
 dureeTravailInput.addEventListener("input", () => {
-    temps.innerHTML = dureeTravailInput.value + ":00";
-    titre.innerHTML = "Pomodoro Timer - " + dureeTravailInput.value + " minutes";
+    let tempsEntier = Math.trunc(dureeTravailInput.value);
+
+    temps.innerHTML = tempsEntier + ":00";
+    titre.innerHTML = "Pomodoro Timer - " + tempsEntier + " minutes";
 });
 
 temps.innerHTML = dureeTravailInput.value + ":00";
@@ -76,8 +79,8 @@ function demarrerMinuteur() {
     clearInterval(intervalle);
 
     // Récupérer les valeurs des saisies
-    const dureeTravail = parseInt(dureeTravailInput.value);
-    const dureePause = parseInt(dureePauseInput.value);
+    const dureeTravail = Math.abs(parseInt(dureeTravailInput.value));
+    const dureePause = Math.abs(parseInt(dureePauseInput.value));
 
     // Enregistrer les valeurs actuelles dans le LocalStorage
     localStorage.setItem("dureeTravail", dureeTravail.toString());
@@ -115,7 +118,7 @@ function demarrerMinuteur() {
             // Calculer les minutes et les secondes
             const minutes = Math.floor(tempsActuel / 60);
             const secondes = tempsActuel % 60;
-
+            
             // Afficher les minutes et les secondes
             if (minutes == 0) {
                 if (secondes < 10) {
