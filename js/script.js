@@ -62,6 +62,21 @@ bouton.addEventListener("click", () => {
     // Réinitialiser le compteur de session à 0
     compteurSession = 0;
 
+    // Récupérer les valeurs des saisies
+    const dureeTravail = parseFloat(dureeTravailInput.value);
+    const dureePause = parseFloat(dureePauseInput.value);
+
+    // Vérifier que les valeurs sont correctes
+    if (isNaN(dureeTravail) || dureeTravail <= 0 || dureeTravail !== Math.floor(dureeTravail)) {
+        alert("La durée de travail doit être un nombre entier positif.");
+        return;
+    }
+
+    if (isNaN(dureePause) || dureePause <= 0 || dureePause !== Math.floor(dureePause)) {
+        alert("La durée de pause doit être un nombre entier positif.");
+        return;
+    }
+
     // Changer l'icône du bouton de démarrage
     demarrer.className = "fa-solid fa-rotate-right"
     if (demarrer.className == "fa-solid fa-rotate-right") {
