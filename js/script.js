@@ -10,11 +10,11 @@ let conteneur = document.getElementById("conteneur");
 let dureeTravailInput = document.getElementById("dureeTravail");
 let dureePauseInput = document.getElementById("dureePause");
 
-let compteur = document.getElementById("compteurSession");
 let demarrer = document.getElementById("iconeDemarrer");
 
 let titre = document.getElementById("titre");
-let supprimerLocalStorage = document.getElementById("supprimerLocalStorage");
+
+
 // Tableau des durées de travail et de pause
 let tableauDurees = [];
 
@@ -50,7 +50,7 @@ dureeTravailInput.addEventListener("input", () => {
 temps.innerHTML = dureeTravailInput.value + ":00";
 titre.innerHTML = "Pomodoro Timer - " + dureeTravailInput.value + " minutes";
 
-supprimerLocalStorage.addEventListener("click", () => {
+document.getElementById("supprimerLocalStorage").addEventListener("click", () => {
     localStorage.clear();
     location.reload();
 });
@@ -66,6 +66,10 @@ bouton.addEventListener("click", () => {
     const dureeTravail = parseFloat(dureeTravailInput.value);
     const dureePause = parseFloat(dureePauseInput.value);
 
+    // Enregistrer les valeurs actuelles dans le LocalStorage
+    sauvegardeLocalStorage(dureeTravail, dureePause);
+
+    
     // Vérifier que les valeurs sont correctes
     if (isNaN(dureeTravail) || dureeTravail <= 0 || dureeTravail !== Math.floor(dureeTravail)) {
         alert("La durée de travail doit être un nombre entier positif.");
@@ -97,30 +101,19 @@ function demarrerMinuteur() {
     const dureeTravail = Math.abs(parseInt(dureeTravailInput.value));
     const dureePause = Math.abs(parseInt(dureePauseInput.value));
 
-    // Enregistrer les valeurs actuelles dans le LocalStorage
-    localStorage.setItem("dureeTravail", dureeTravail.toString());
-    localStorage.setItem("dureePause", dureePause.toString());
+    // Vérifier que les valeurs sont correctes
+    verificationPause (dureePause)
+    verificationTravail(dureeTravail)
 
     // Enregistrer les durées de travail et de pause dans le tableau
     tableauDurees = [dureeTravail * 60, dureePause * 60];
     let tempsActuel = tableauDurees[indexActuel];
 
     // Afficher le compteur de session
-    compteur.textContent = "Nombre de sessions : " + compteurSession;
+    document.getElementById("compteurSession").textContent = "Nombre de sessions : " + compteurSession;
 
-    // Afficher le statut du minuteur et la couleur correspondante au statut
-    if (indexActuel == 0) {
-        statut.innerHTML = "Travail";
-        statut.style.color = "white";
-        etat.style.background = "red";
-        conteneur.style.borderColor = "red";
-    } else {
-        compteurSession++;
-        statut.style.color = "white";
-        statut.innerHTML = "Pause";
-        etat.style.background = "green";
-        conteneur.style.borderColor = "green";
-    }
+    //applique le style
+    style()
 
     // Démarrer le minuteur
     intervalle = setInterval(() => {
@@ -135,24 +128,8 @@ function demarrerMinuteur() {
             const secondes = tempsActuel % 60;
             
             // Afficher les minutes et les secondes
-            if (minutes == 0) {
-                if (secondes < 10) {
-                    temps.innerHTML = "00:0" + secondes;
-                } else {
-                    temps.innerHTML = "00:" + secondes;
-                }
-            } else {
-                if (secondes < 10 && minutes < 10) {
-                    temps.innerHTML = "0" + minutes + ":0" + secondes;
-                } else if (secondes < 10 && minutes >= 10) {
-                    temps.innerHTML = minutes + ":0" + secondes;
-                } else if (secondes >= 10 && minutes < 10) {
-                    temps.innerHTML = "0" + minutes + ":" + secondes;
-                } else {
-                    temps.innerHTML = minutes + ":" + secondes;
-                }
-                
-            }
+            afficherTemps(minutes, secondes)
+
         } else {
             // Si le minuteur est terminé, passer au suivant
             clearInterval(intervalle);
@@ -162,4 +139,65 @@ function demarrerMinuteur() {
             demarrerMinuteur();
         }
     }, 1000);
+}
+
+
+// Afficher le statut du minuteur et la couleur correspondante au statut
+function style(){
+    if (indexActuel == 0) {
+        statut.innerHTML = "Travail";
+        statut.style.color = "white";
+        etat.style.background = "red";
+        conteneur.style.borderColor = "red";
+    } else {
+        compteurSession++;
+        statut.style.color = "white";
+        statut.innerHTML = "Pause";
+        etat.style.background = "green";
+        conteneur.style.borderColor = "green";
+    }
+}
+
+// Fonction pour enregistrer les valeurs actuelles dans le LocalStorage
+function sauvegardeLocalStorage(dureeTravail, dureePause){
+        localStorage.setItem("dureeTravail", dureeTravail.toString());
+        localStorage.setItem("dureePause", dureePause.toString());
+}
+
+// Vérifier que les valeurs de travail entrées sont correctes
+
+function verificationTravail(dureeTravail){
+    if (isNaN(dureeTravail) || dureeTravail <= 0 || dureeTravail !== Math.floor(dureeTravail)) {
+        alert("La durée de travail doit être un nombre entier positif.");
+        return;
+    }
+}  
+
+// Vérifier que les valeurs de pause entrées sont correctes
+
+function verificationPause (dureePause){
+    if (isNaN(dureePause) || dureePause <= 0 || dureePause !== Math.floor(dureePause)) {
+        alert("La durée de pause doit être un nombre entier positif.");
+        return;
+    }
+}
+
+function afficherTemps(minutes, secondes){
+    if (minutes == 0) {
+        if (secondes < 10) {
+            temps.innerHTML = "00:0" + secondes;
+        } else {
+            temps.innerHTML = "00:" + secondes;
+        }
+    } else {
+        if (secondes < 10 && minutes < 10) {
+            temps.innerHTML = "0" + minutes + ":0" + secondes;
+        } else if (secondes < 10 && minutes >= 10) {
+            temps.innerHTML = minutes + ":0" + secondes;
+        } else if (secondes >= 10 && minutes < 10) {
+            temps.innerHTML = "0" + minutes + ":" + secondes;
+        } else {
+            temps.innerHTML = minutes + ":" + secondes;
+        }
+    }
 }
